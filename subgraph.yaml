@@ -1,0 +1,92 @@
+specVersion: 0.0.4
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: PTNFTMarketPlace
+    network: rinkeby
+    source:
+      address: "0x7c7C04Ee1B96D9157D0e1Beb52b0bbA08F75d9F4"
+      abi: PTNFTMarketPlace
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - AcceptOffer
+        - BuyNFT
+        - CreateOffer
+        - FallbackCalled
+        - MarketItemCreated
+        - MarketItemDelete
+        - ReceivedCalled
+        - RejectOffer
+        - WithDrawAmount
+        - WithDrawFromOffer
+        - WithDrawRefundAmount
+      abis:
+        - name: PTNFTMarketPlace
+          file: ./abis/PTNFTMarketPlace.json
+      eventHandlers:
+        - event: AcceptOffer(indexed uint256,address,indexed address,uint256,indexed address,uint8)
+          handler: handleAcceptOffer
+        - event: BuyNFT(indexed uint256,address,indexed address,uint256,indexed address)
+          handler: handleBuyNFT
+        - event: CreateOffer(indexed uint256,indexed address,uint256,uint256,uint256,uint256,indexed
+            address,uint8)
+          handler: handleCreateOffer
+        - event: FallbackCalled(indexed address,indexed uint256)
+          handler: handleFallbackCalled
+        - event: MarketItemCreated(indexed uint256,indexed address,indexed
+            address,address,uint256,uint256,bool,uint256,uint256,uint8)
+          handler: handleMarketItemCreated
+        - event: MarketItemDelete(indexed uint256,indexed address,indexed address,uint8)
+          handler: handleMarketItemDelete
+        - event: ReceivedCalled(indexed address,indexed uint256)
+          handler: handleReceivedCalled
+        - event: RejectOffer(indexed uint256,address,indexed address,uint256,indexed address,uint8)
+          handler: handleRejectOffer
+        - event: WithDrawAmount(indexed address,indexed uint256)
+          handler: handleWithDrawAmount
+        - event: WithDrawFromOffer(indexed uint256,indexed address,uint256,indexed address)
+          handler: handleWithDrawFromOffer
+        - event: WithDrawRefundAmount(indexed uint256,indexed address,indexed address,uint256)
+          handler: handleWithDrawRefundAmount
+      file: ./src/ptnft-market-place.ts
+  - kind: ethereum
+    name: PTNFT
+    network: rinkeby
+    source:
+      address: "0xBF4e2f98D0188b3009a90B1650132D690A2c51AD"
+      abi: PTNFT
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Approval
+        - ApprovalForAll
+        - RedeemVoucher
+        - RoleAdminChanged
+        - RoleGranted
+        - RoleRevoked
+        - Transfer
+      abis:
+        - name: PTNFT
+          file: ./abis/PTNFT.json
+      eventHandlers:
+        - event: Approval(indexed address,indexed address,indexed uint256)
+          handler: handleApproval
+        - event: ApprovalForAll(indexed address,indexed address,bool)
+          handler: handleApprovalForAll
+        - event: RedeemVoucher(indexed address,indexed uint256,indexed address)
+          handler: handleRedeemVoucher
+        - event: RoleAdminChanged(indexed bytes32,indexed bytes32,indexed bytes32)
+          handler: handleRoleAdminChanged
+        - event: RoleGranted(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleGranted
+        - event: RoleRevoked(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleRevoked
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+      file: ./src/ptnft.ts
