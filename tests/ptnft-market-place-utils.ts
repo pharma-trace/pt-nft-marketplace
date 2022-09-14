@@ -9,6 +9,8 @@ import {
   MarketItemDelete,
   ReceivedCalled,
   RejectOffer,
+  TotalNumberOfItemMarketPlace,
+  TotalNumberOfOfferOnMarketPlace,
   WithDrawAmount,
   WithDrawFromOffer,
   WithDrawRefundAmount
@@ -186,7 +188,6 @@ export function createMarketItemCreatedEvent(
   seller: Address,
   buyer: Address,
   minPrice: BigInt,
-  maxPrice: BigInt,
   isFixedPrice: boolean,
   startAt: BigInt,
   expiresAt: BigInt,
@@ -218,12 +219,6 @@ export function createMarketItemCreatedEvent(
     new ethereum.EventParam(
       "minPrice",
       ethereum.Value.fromUnsignedBigInt(minPrice)
-    )
-  )
-  marketItemCreatedEvent.parameters.push(
-    new ethereum.EventParam(
-      "maxPrice",
-      ethereum.Value.fromUnsignedBigInt(maxPrice)
     )
   )
   marketItemCreatedEvent.parameters.push(
@@ -353,6 +348,44 @@ export function createRejectOfferEvent(
   return rejectOfferEvent
 }
 
+export function createTotalNumberOfItemMarketPlaceEvent(
+  itemSoldCounter: BigInt
+): TotalNumberOfItemMarketPlace {
+  let totalNumberOfItemMarketPlaceEvent = changetype<
+    TotalNumberOfItemMarketPlace
+  >(newMockEvent())
+
+  totalNumberOfItemMarketPlaceEvent.parameters = new Array()
+
+  totalNumberOfItemMarketPlaceEvent.parameters.push(
+    new ethereum.EventParam(
+      "itemSoldCounter",
+      ethereum.Value.fromUnsignedBigInt(itemSoldCounter)
+    )
+  )
+
+  return totalNumberOfItemMarketPlaceEvent
+}
+
+export function createTotalNumberOfOfferOnMarketPlaceEvent(
+  totalOfferOnMarketPlace: BigInt
+): TotalNumberOfOfferOnMarketPlace {
+  let totalNumberOfOfferOnMarketPlaceEvent = changetype<
+    TotalNumberOfOfferOnMarketPlace
+  >(newMockEvent())
+
+  totalNumberOfOfferOnMarketPlaceEvent.parameters = new Array()
+
+  totalNumberOfOfferOnMarketPlaceEvent.parameters.push(
+    new ethereum.EventParam(
+      "totalOfferOnMarketPlace",
+      ethereum.Value.fromUnsignedBigInt(totalOfferOnMarketPlace)
+    )
+  )
+
+  return totalNumberOfOfferOnMarketPlaceEvent
+}
+
 export function createWithDrawAmountEvent(
   offerBy: Address,
   amount: BigInt
@@ -373,6 +406,7 @@ export function createWithDrawAmountEvent(
 
 export function createWithDrawFromOfferEvent(
   tokenId: BigInt,
+  contractAddress: Address,
   offerAmount: BigInt,
   offerBy: Address
 ): WithDrawFromOffer {
@@ -384,6 +418,12 @@ export function createWithDrawFromOfferEvent(
     new ethereum.EventParam(
       "tokenId",
       ethereum.Value.fromUnsignedBigInt(tokenId)
+    )
+  )
+  withDrawFromOfferEvent.parameters.push(
+    new ethereum.EventParam(
+      "contractAddress",
+      ethereum.Value.fromAddress(contractAddress)
     )
   )
   withDrawFromOfferEvent.parameters.push(

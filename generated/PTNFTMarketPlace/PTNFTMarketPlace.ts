@@ -183,24 +183,20 @@ export class MarketItemCreated__Params {
     return this._event.parameters[4].value.toBigInt();
   }
 
-  get maxPrice(): BigInt {
-    return this._event.parameters[5].value.toBigInt();
-  }
-
   get isFixedPrice(): boolean {
-    return this._event.parameters[6].value.toBoolean();
+    return this._event.parameters[5].value.toBoolean();
   }
 
   get startAt(): BigInt {
-    return this._event.parameters[7].value.toBigInt();
+    return this._event.parameters[6].value.toBigInt();
   }
 
   get expiresAt(): BigInt {
-    return this._event.parameters[8].value.toBigInt();
+    return this._event.parameters[7].value.toBigInt();
   }
 
   get state(): i32 {
-    return this._event.parameters[9].value.toI32();
+    return this._event.parameters[8].value.toI32();
   }
 }
 
@@ -294,6 +290,42 @@ export class RejectOffer__Params {
   }
 }
 
+export class TotalNumberOfItemMarketPlace extends ethereum.Event {
+  get params(): TotalNumberOfItemMarketPlace__Params {
+    return new TotalNumberOfItemMarketPlace__Params(this);
+  }
+}
+
+export class TotalNumberOfItemMarketPlace__Params {
+  _event: TotalNumberOfItemMarketPlace;
+
+  constructor(event: TotalNumberOfItemMarketPlace) {
+    this._event = event;
+  }
+
+  get itemSoldCounter(): BigInt {
+    return this._event.parameters[0].value.toBigInt();
+  }
+}
+
+export class TotalNumberOfOfferOnMarketPlace extends ethereum.Event {
+  get params(): TotalNumberOfOfferOnMarketPlace__Params {
+    return new TotalNumberOfOfferOnMarketPlace__Params(this);
+  }
+}
+
+export class TotalNumberOfOfferOnMarketPlace__Params {
+  _event: TotalNumberOfOfferOnMarketPlace;
+
+  constructor(event: TotalNumberOfOfferOnMarketPlace) {
+    this._event = event;
+  }
+
+  get totalOfferOnMarketPlace(): BigInt {
+    return this._event.parameters[0].value.toBigInt();
+  }
+}
+
 export class WithDrawAmount extends ethereum.Event {
   get params(): WithDrawAmount__Params {
     return new WithDrawAmount__Params(this);
@@ -333,12 +365,16 @@ export class WithDrawFromOffer__Params {
     return this._event.parameters[0].value.toBigInt();
   }
 
+  get contractAddress(): Address {
+    return this._event.parameters[1].value.toAddress();
+  }
+
   get offerAmount(): BigInt {
-    return this._event.parameters[1].value.toBigInt();
+    return this._event.parameters[2].value.toBigInt();
   }
 
   get offerBy(): Address {
-    return this._event.parameters[2].value.toAddress();
+    return this._event.parameters[3].value.toAddress();
   }
 }
 
@@ -389,24 +425,20 @@ export class PTNFTMarketPlace__getMarketItemResultValue0Struct extends ethereum.
     return this[3].toBigInt();
   }
 
-  get maxPrice(): BigInt {
-    return this[4].toBigInt();
-  }
-
   get isFixedPrice(): boolean {
-    return this[5].toBoolean();
+    return this[4].toBoolean();
   }
 
   get startAt(): BigInt {
-    return this[6].toBigInt();
+    return this[5].toBigInt();
   }
 
   get expiresAt(): BigInt {
-    return this[7].toBigInt();
+    return this[6].toBigInt();
   }
 
   get state(): i32 {
-    return this[8].toI32();
+    return this[7].toI32();
   }
 }
 
@@ -475,22 +507,20 @@ export class PTNFTMarketPlace__s_marketItemsResult {
   value1: Address;
   value2: Address;
   value3: BigInt;
-  value4: BigInt;
-  value5: boolean;
+  value4: boolean;
+  value5: BigInt;
   value6: BigInt;
-  value7: BigInt;
-  value8: i32;
+  value7: i32;
 
   constructor(
     value0: BigInt,
     value1: Address,
     value2: Address,
     value3: BigInt,
-    value4: BigInt,
-    value5: boolean,
+    value4: boolean,
+    value5: BigInt,
     value6: BigInt,
-    value7: BigInt,
-    value8: i32
+    value7: i32
   ) {
     this.value0 = value0;
     this.value1 = value1;
@@ -500,7 +530,6 @@ export class PTNFTMarketPlace__s_marketItemsResult {
     this.value5 = value5;
     this.value6 = value6;
     this.value7 = value7;
-    this.value8 = value8;
   }
 
   toMap(): TypedMap<string, ethereum.Value> {
@@ -509,13 +538,12 @@ export class PTNFTMarketPlace__s_marketItemsResult {
     map.set("value1", ethereum.Value.fromAddress(this.value1));
     map.set("value2", ethereum.Value.fromAddress(this.value2));
     map.set("value3", ethereum.Value.fromUnsignedBigInt(this.value3));
-    map.set("value4", ethereum.Value.fromUnsignedBigInt(this.value4));
-    map.set("value5", ethereum.Value.fromBoolean(this.value5));
+    map.set("value4", ethereum.Value.fromBoolean(this.value4));
+    map.set("value5", ethereum.Value.fromUnsignedBigInt(this.value5));
     map.set("value6", ethereum.Value.fromUnsignedBigInt(this.value6));
-    map.set("value7", ethereum.Value.fromUnsignedBigInt(this.value7));
     map.set(
-      "value8",
-      ethereum.Value.fromUnsignedBigInt(BigInt.fromI32(this.value8))
+      "value7",
+      ethereum.Value.fromUnsignedBigInt(BigInt.fromI32(this.value7))
     );
     return map;
   }
@@ -536,24 +564,20 @@ export class PTNFTMarketPlace__s_marketItemsResult {
     return this.value3;
   }
 
-  getMaxPrice(): BigInt {
+  getIsFixedPrice(): boolean {
     return this.value4;
   }
 
-  getIsFixedPrice(): boolean {
+  getStartAt(): BigInt {
     return this.value5;
   }
 
-  getStartAt(): BigInt {
+  getExpiresAt(): BigInt {
     return this.value6;
   }
 
-  getExpiresAt(): BigInt {
-    return this.value7;
-  }
-
   getState(): i32 {
-    return this.value8;
+    return this.value7;
   }
 }
 
@@ -629,7 +653,7 @@ export class PTNFTMarketPlace extends ethereum.SmartContract {
   ): PTNFTMarketPlace__getMarketItemResultValue0Struct {
     let result = super.call(
       "getMarketItem",
-      "getMarketItem(address,uint256):((uint256,address,address,uint256,uint256,bool,uint256,uint256,uint8))",
+      "getMarketItem(address,uint256):((uint256,address,address,uint256,bool,uint256,uint256,uint8))",
       [
         ethereum.Value.fromAddress(nftAddress),
         ethereum.Value.fromUnsignedBigInt(tokenId)
@@ -647,7 +671,7 @@ export class PTNFTMarketPlace extends ethereum.SmartContract {
   ): ethereum.CallResult<PTNFTMarketPlace__getMarketItemResultValue0Struct> {
     let result = super.tryCall(
       "getMarketItem",
-      "getMarketItem(address,uint256):((uint256,address,address,uint256,uint256,bool,uint256,uint256,uint8))",
+      "getMarketItem(address,uint256):((uint256,address,address,uint256,bool,uint256,uint256,uint8))",
       [
         ethereum.Value.fromAddress(nftAddress),
         ethereum.Value.fromUnsignedBigInt(tokenId)
@@ -665,12 +689,16 @@ export class PTNFTMarketPlace extends ethereum.SmartContract {
   }
 
   getMarketOffer(
+    nftAddress: Address,
     tokenId: BigInt
   ): PTNFTMarketPlace__getMarketOfferResultValue0Struct {
     let result = super.call(
       "getMarketOffer",
-      "getMarketOffer(uint256):((uint256,uint256,uint256,uint256,uint256,address,uint8))",
-      [ethereum.Value.fromUnsignedBigInt(tokenId)]
+      "getMarketOffer(address,uint256):((uint256,uint256,uint256,uint256,uint256,address,uint8))",
+      [
+        ethereum.Value.fromAddress(nftAddress),
+        ethereum.Value.fromUnsignedBigInt(tokenId)
+      ]
     );
 
     return changetype<PTNFTMarketPlace__getMarketOfferResultValue0Struct>(
@@ -679,12 +707,16 @@ export class PTNFTMarketPlace extends ethereum.SmartContract {
   }
 
   try_getMarketOffer(
+    nftAddress: Address,
     tokenId: BigInt
   ): ethereum.CallResult<PTNFTMarketPlace__getMarketOfferResultValue0Struct> {
     let result = super.tryCall(
       "getMarketOffer",
-      "getMarketOffer(uint256):((uint256,uint256,uint256,uint256,uint256,address,uint8))",
-      [ethereum.Value.fromUnsignedBigInt(tokenId)]
+      "getMarketOffer(address,uint256):((uint256,uint256,uint256,uint256,uint256,address,uint8))",
+      [
+        ethereum.Value.fromAddress(nftAddress),
+        ethereum.Value.fromUnsignedBigInt(tokenId)
+      ]
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -739,11 +771,17 @@ export class PTNFTMarketPlace extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toAddress());
   }
 
-  getOffer(tokenId: BigInt): PTNFTMarketPlace__getOfferResultValue0Struct {
+  getOffer(
+    nftAddress: Address,
+    tokenId: BigInt
+  ): PTNFTMarketPlace__getOfferResultValue0Struct {
     let result = super.call(
       "getOffer",
-      "getOffer(uint256):((uint256,uint256,uint256,uint256,uint256,address,uint8))",
-      [ethereum.Value.fromUnsignedBigInt(tokenId)]
+      "getOffer(address,uint256):((uint256,uint256,uint256,uint256,uint256,address,uint8))",
+      [
+        ethereum.Value.fromAddress(nftAddress),
+        ethereum.Value.fromUnsignedBigInt(tokenId)
+      ]
     );
 
     return changetype<PTNFTMarketPlace__getOfferResultValue0Struct>(
@@ -752,12 +790,16 @@ export class PTNFTMarketPlace extends ethereum.SmartContract {
   }
 
   try_getOffer(
+    nftAddress: Address,
     tokenId: BigInt
   ): ethereum.CallResult<PTNFTMarketPlace__getOfferResultValue0Struct> {
     let result = super.tryCall(
       "getOffer",
-      "getOffer(uint256):((uint256,uint256,uint256,uint256,uint256,address,uint8))",
-      [ethereum.Value.fromUnsignedBigInt(tokenId)]
+      "getOffer(address,uint256):((uint256,uint256,uint256,uint256,uint256,address,uint8))",
+      [
+        ethereum.Value.fromAddress(nftAddress),
+        ethereum.Value.fromUnsignedBigInt(tokenId)
+      ]
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -799,7 +841,7 @@ export class PTNFTMarketPlace extends ethereum.SmartContract {
   ): PTNFTMarketPlace__s_marketItemsResult {
     let result = super.call(
       "s_marketItems",
-      "s_marketItems(address,uint256):(uint256,address,address,uint256,uint256,bool,uint256,uint256,uint8)",
+      "s_marketItems(address,uint256):(uint256,address,address,uint256,bool,uint256,uint256,uint8)",
       [
         ethereum.Value.fromAddress(param0),
         ethereum.Value.fromUnsignedBigInt(param1)
@@ -811,11 +853,10 @@ export class PTNFTMarketPlace extends ethereum.SmartContract {
       result[1].toAddress(),
       result[2].toAddress(),
       result[3].toBigInt(),
-      result[4].toBigInt(),
-      result[5].toBoolean(),
+      result[4].toBoolean(),
+      result[5].toBigInt(),
       result[6].toBigInt(),
-      result[7].toBigInt(),
-      result[8].toI32()
+      result[7].toI32()
     );
   }
 
@@ -825,7 +866,7 @@ export class PTNFTMarketPlace extends ethereum.SmartContract {
   ): ethereum.CallResult<PTNFTMarketPlace__s_marketItemsResult> {
     let result = super.tryCall(
       "s_marketItems",
-      "s_marketItems(address,uint256):(uint256,address,address,uint256,uint256,bool,uint256,uint256,uint8)",
+      "s_marketItems(address,uint256):(uint256,address,address,uint256,bool,uint256,uint256,uint8)",
       [
         ethereum.Value.fromAddress(param0),
         ethereum.Value.fromUnsignedBigInt(param1)
@@ -841,11 +882,10 @@ export class PTNFTMarketPlace extends ethereum.SmartContract {
         value[1].toAddress(),
         value[2].toAddress(),
         value[3].toBigInt(),
-        value[4].toBigInt(),
-        value[5].toBoolean(),
+        value[4].toBoolean(),
+        value[5].toBigInt(),
         value[6].toBigInt(),
-        value[7].toBigInt(),
-        value[8].toI32()
+        value[7].toI32()
       )
     );
   }
@@ -944,16 +984,12 @@ export class AcceptLazzNFTOfferCallVoucherStruct extends ethereum.Tuple {
     return this[1].toBigInt();
   }
 
-  get maxPrice(): BigInt {
-    return this[2].toBigInt();
-  }
-
   get uri(): string {
-    return this[3].toString();
+    return this[2].toString();
   }
 
   get signature(): Bytes {
-    return this[4].toBytes();
+    return this[3].toBytes();
   }
 }
 
@@ -1066,16 +1102,12 @@ export class BuyLazzNFTCallVoucherStruct extends ethereum.Tuple {
     return this[1].toBigInt();
   }
 
-  get maxPrice(): BigInt {
-    return this[2].toBigInt();
-  }
-
   get uri(): string {
-    return this[3].toString();
+    return this[2].toString();
   }
 
   get signature(): Bytes {
-    return this[4].toBytes();
+    return this[3].toBytes();
   }
 }
 
@@ -1104,20 +1136,16 @@ export class CreateMarketItemCall__Inputs {
     return this._call.inputValues[1].value.toBigInt();
   }
 
-  get maxPrice(): BigInt {
-    return this._call.inputValues[2].value.toBigInt();
-  }
-
   get isFixedPrice(): boolean {
-    return this._call.inputValues[3].value.toBoolean();
+    return this._call.inputValues[2].value.toBoolean();
   }
 
   get expiresAt(): BigInt {
-    return this._call.inputValues[4].value.toBigInt();
+    return this._call.inputValues[3].value.toBigInt();
   }
 
   get nftAddress(): Address {
-    return this._call.inputValues[5].value.toAddress();
+    return this._call.inputValues[4].value.toAddress();
   }
 }
 
@@ -1212,16 +1240,12 @@ export class CreateOfferFoRLazzNFTCallVoucherStruct extends ethereum.Tuple {
     return this[1].toBigInt();
   }
 
-  get maxPrice(): BigInt {
-    return this[2].toBigInt();
-  }
-
   get uri(): string {
-    return this[3].toString();
+    return this[2].toString();
   }
 
   get signature(): Bytes {
-    return this[4].toBytes();
+    return this[3].toBytes();
   }
 }
 
@@ -1300,16 +1324,12 @@ export class RejectLazzNFTOfferCallVoucherStruct extends ethereum.Tuple {
     return this[1].toBigInt();
   }
 
-  get maxPrice(): BigInt {
-    return this[2].toBigInt();
-  }
-
   get uri(): string {
-    return this[3].toString();
+    return this[2].toString();
   }
 
   get signature(): Bytes {
-    return this[4].toBytes();
+    return this[3].toBytes();
   }
 }
 
@@ -1433,32 +1453,70 @@ export class WithDrawAmountCall__Outputs {
   }
 }
 
-export class WithDrawFromOfferCall extends ethereum.Call {
-  get inputs(): WithDrawFromOfferCall__Inputs {
-    return new WithDrawFromOfferCall__Inputs(this);
+export class WithDrawOfferFromLazzMintCall extends ethereum.Call {
+  get inputs(): WithDrawOfferFromLazzMintCall__Inputs {
+    return new WithDrawOfferFromLazzMintCall__Inputs(this);
   }
 
-  get outputs(): WithDrawFromOfferCall__Outputs {
-    return new WithDrawFromOfferCall__Outputs(this);
+  get outputs(): WithDrawOfferFromLazzMintCall__Outputs {
+    return new WithDrawOfferFromLazzMintCall__Outputs(this);
   }
 }
 
-export class WithDrawFromOfferCall__Inputs {
-  _call: WithDrawFromOfferCall;
+export class WithDrawOfferFromLazzMintCall__Inputs {
+  _call: WithDrawOfferFromLazzMintCall;
 
-  constructor(call: WithDrawFromOfferCall) {
+  constructor(call: WithDrawOfferFromLazzMintCall) {
     this._call = call;
   }
 
+  get nftAddress(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
   get tokenId(): BigInt {
-    return this._call.inputValues[0].value.toBigInt();
+    return this._call.inputValues[1].value.toBigInt();
   }
 }
 
-export class WithDrawFromOfferCall__Outputs {
-  _call: WithDrawFromOfferCall;
+export class WithDrawOfferFromLazzMintCall__Outputs {
+  _call: WithDrawOfferFromLazzMintCall;
 
-  constructor(call: WithDrawFromOfferCall) {
+  constructor(call: WithDrawOfferFromLazzMintCall) {
+    this._call = call;
+  }
+}
+
+export class WithDrawOfferFromMarketCall extends ethereum.Call {
+  get inputs(): WithDrawOfferFromMarketCall__Inputs {
+    return new WithDrawOfferFromMarketCall__Inputs(this);
+  }
+
+  get outputs(): WithDrawOfferFromMarketCall__Outputs {
+    return new WithDrawOfferFromMarketCall__Outputs(this);
+  }
+}
+
+export class WithDrawOfferFromMarketCall__Inputs {
+  _call: WithDrawOfferFromMarketCall;
+
+  constructor(call: WithDrawOfferFromMarketCall) {
+    this._call = call;
+  }
+
+  get nftAddress(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get tokenId(): BigInt {
+    return this._call.inputValues[1].value.toBigInt();
+  }
+}
+
+export class WithDrawOfferFromMarketCall__Outputs {
+  _call: WithDrawOfferFromMarketCall;
+
+  constructor(call: WithDrawOfferFromMarketCall) {
     this._call = call;
   }
 }

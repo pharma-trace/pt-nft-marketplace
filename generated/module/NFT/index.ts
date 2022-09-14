@@ -1,20 +1,21 @@
 import {
-    NFTOwne
+    BuyNFT
 } from "../../schema"
 
 export class NFTOwnerResponse {
     isExist: boolean
-    nftOwnerEntity: NFTOwne
-    constructor(_isExist: boolean, _nftOwnerEntity: NFTOwne) {
+    nftOwnerEntity: BuyNFT
+    constructor(_isExist: boolean, _nftOwnerEntity: BuyNFT) {
         this.isExist = _isExist;
         this.nftOwnerEntity = _nftOwnerEntity
     }
 }
 export function getNFTOwner(id: string): NFTOwnerResponse {
     let isExist = true;
-    let entity = NFTOwne.load(id);
-    if (entity.id == "") {
+    let entity = BuyNFT.load(id);
+    if (!entity) {
         isExist = false;
+        entity = new BuyNFT(id);
     }
     var res = new NFTOwnerResponse(isExist, entity);
 

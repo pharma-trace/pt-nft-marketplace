@@ -6,8 +6,9 @@ dataSources:
     name: PTNFTMarketPlace
     network: rinkeby
     source:
-      address: "0x7c7C04Ee1B96D9157D0e1Beb52b0bbA08F75d9F4"
+      address: "0x31CE574631206FF278a3874d662532067803234D"
       abi: PTNFTMarketPlace
+      startBlock: 11373520
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -21,6 +22,8 @@ dataSources:
         - MarketItemDelete
         - ReceivedCalled
         - RejectOffer
+        - TotalNumberOfItemMarketPlace
+        - TotalNumberOfOfferOnMarketPlace
         - WithDrawAmount
         - WithDrawFromOffer
         - WithDrawRefundAmount
@@ -32,13 +35,14 @@ dataSources:
           handler: handleAcceptOffer
         - event: BuyNFT(indexed uint256,address,indexed address,uint256,indexed address)
           handler: handleBuyNFT
-        - event: CreateOffer(indexed uint256,indexed address,uint256,uint256,uint256,uint256,indexed
+        - event:
+            CreateOffer(indexed uint256,indexed address,uint256,uint256,uint256,uint256,indexed
             address,uint8)
           handler: handleCreateOffer
         - event: FallbackCalled(indexed address,indexed uint256)
           handler: handleFallbackCalled
         - event: MarketItemCreated(indexed uint256,indexed address,indexed
-            address,address,uint256,uint256,bool,uint256,uint256,uint8)
+            address,address,uint256,bool,uint256,uint256,uint8)
           handler: handleMarketItemCreated
         - event: MarketItemDelete(indexed uint256,indexed address,indexed address,uint8)
           handler: handleMarketItemDelete
@@ -46,6 +50,10 @@ dataSources:
           handler: handleReceivedCalled
         - event: RejectOffer(indexed uint256,address,indexed address,uint256,indexed address,uint8)
           handler: handleRejectOffer
+        - event: TotalNumberOfItemMarketPlace(indexed uint256)
+          handler: handleTotalNumberOfItemMarketPlace
+        - event: TotalNumberOfOfferOnMarketPlace(indexed uint256)
+          handler: handleTotalNumberOfOfferOnMarketPlace
         - event: WithDrawAmount(indexed address,indexed uint256)
           handler: handleWithDrawAmount
         - event: WithDrawFromOffer(indexed uint256,indexed address,uint256,indexed address)
@@ -57,8 +65,9 @@ dataSources:
     name: PTNFT
     network: rinkeby
     source:
-      address: "0xBF4e2f98D0188b3009a90B1650132D690A2c51AD"
+      address: "0xf7160BDa34Abe48D6BC4a920030926Cc96f5e1eB"
       abi: PTNFT
+      startBlock: 11373530
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6

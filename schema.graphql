@@ -1,14 +1,9 @@
-type ExampleEntity @entity {
-  id: ID!
-  count: BigInt!
-  tokenId: BigInt! # uint256
-  offerAmount: BigInt! # uint256
-}
 type Approval @entity {
   id: ID!
   owner: Bytes! # address
   approved: Bytes! # address
   tokenId: BigInt! # uint256
+  ts: BigInt!
 }
 
 type ApprovalForAll @entity {
@@ -16,6 +11,7 @@ type ApprovalForAll @entity {
   owner: Bytes! # address
   operator: Bytes! # address
   approved: Boolean! # bool
+  ts: BigInt!
 }
 
 type RedeemVoucher @entity {
@@ -23,6 +19,7 @@ type RedeemVoucher @entity {
   signer: Bytes! # address
   tokenId: BigInt! # uint256
   redeemer: Bytes! # address
+  ts: BigInt!
 }
 
 type RoleAdminChanged @entity {
@@ -30,6 +27,7 @@ type RoleAdminChanged @entity {
   role: Bytes! # bytes32
   previousAdminRole: Bytes! # bytes32
   newAdminRole: Bytes! # bytes32
+  ts: BigInt!
 }
 
 type RoleGranted @entity {
@@ -37,6 +35,7 @@ type RoleGranted @entity {
   role: Bytes! # bytes32
   account: Bytes! # address
   sender: Bytes! # address
+  ts: BigInt!
 }
 
 type RoleRevoked @entity {
@@ -44,6 +43,7 @@ type RoleRevoked @entity {
   role: Bytes! # bytes32
   account: Bytes! # address
   sender: Bytes! # address
+  ts: BigInt!
 }
 
 type Transfer @entity {
@@ -51,18 +51,31 @@ type Transfer @entity {
   from: Bytes! # address
   to: Bytes! # address
   tokenId: BigInt! # uint256
+  ts: BigInt!
 }
 
+type TotalNumberOfItemMarketPlace @entity {
+  id: ID!
+  total: BigInt! # uint256
+  ts: BigInt!
+}
+type TotalNumberOfOfferOnMarketPlace @entity {
+  id: ID!
+  total: BigInt! # uint256
+  ts: BigInt!
+}
 # all entity for market place
 type ReceivedCalled @entity {
   id: ID!
   buyer: Bytes! #address of person who send many accidentally
   amount: BigInt! # uint256
+  ts: BigInt!
 }
 type FallbackCalled @entity {
   id: ID!
   buyer: Bytes! #address of person who send many accidentally
   amount: BigInt! # uint256
+  ts: BigInt!
 }
 type CreateOffer @entity {
   id: ID!
@@ -73,7 +86,8 @@ type CreateOffer @entity {
   startAt: BigInt! # uint256
   expiresAt: BigInt! # uint256
   offerBy: User! #address
-  status: State! # uint256
+  status: String! # uint256
+  ts: BigInt!
 }
 type AcceptOffer @entity {
   id: ID!
@@ -82,7 +96,8 @@ type AcceptOffer @entity {
   contractAddress: Bytes! #address
   offerAmount: BigInt! # uint256
   offerBy: Bytes! #address
-  status: State! # uint256
+  status: String! # uint256
+  ts: BigInt!
 }
 type RejectOffer @entity {
   id: ID!
@@ -91,7 +106,8 @@ type RejectOffer @entity {
   contractAddress: Bytes! #address
   offerAmount: BigInt! # uint256
   offerBy: Bytes! #address
-  status: State! # uint256
+  status: String! # uint256
+  ts: BigInt!
 }
 type WithDrawFromOffer @entity {
   id: ID!
@@ -99,26 +115,23 @@ type WithDrawFromOffer @entity {
   contractAddress: Bytes!
   offerAmount: BigInt! # uint256
   offerBy: Bytes! #address
+  ts: BigInt!
 }
 type WithDrawAmount @entity {
   id: ID!
   offerAmount: BigInt! # uint256
   offerBy: Bytes! #address
+  ts: BigInt!
 }
 type WithDrawRefundAmount @entity {
   id: ID!
+  tokenId: BigInt!
+  contractAddress: Bytes! #address
   amount: BigInt! # uint256
   offerBy: Bytes! #address
+  ts: BigInt!
 }
-type BuyNFT @entity {
-  id: ID!
-  tokenId: BigInt! # uint256
-  owner: Bytes! #address
-  contractAddress: Bytes! #address
-  offerAmount: BigInt! # uint256
-  offerBy: Bytes! #address
-  ownerNFTId: NFTOwne!
-}
+
 type MarketItemCreated @entity {
   id: ID!
   tokenId: BigInt! # uint256
@@ -126,43 +139,48 @@ type MarketItemCreated @entity {
   seller: User! #address
   buyer: Bytes! #address
   minPrice: BigInt! # uint256
-  maxPrice: BigInt! # uint256
   isFixedPrice: Boolean #bool
   startAt: BigInt! # uint256
   expiresAt: BigInt! # uint256
-  state: OfferState! # uint256
+  state: String! # uint256
+  ts: BigInt!
 }
 type MarketItemDelete @entity {
   id: ID!
   tokenId: BigInt! # uint256
   contractAddress: Bytes! #address
   seller: Bytes! #address
-  state: OfferState! # uint256
+  state: String! # uint256
+  ts: BigInt!
 }
-
-type NFTOwne @entity {
+type BuyNFT @entity {
   id: ID!
-  tokenId: User! # string
-  buyId: [BuyNFT!]! @derivedFrom(field: "ownerNFTId") #address
+  tokenId: BigInt! # uint256
+  oldOwner: Bytes! #address
+  contractAddress: Bytes! #address
+  offerAmount: BigInt! # uint256
+  owner: User! #address
   status: Boolean! # uint256
+  ts: BigInt!
 }
 
 type User @entity {
   id: ID!
   userAddress: Bytes! #address
-  nftOwne: [NFTOwne!] @derivedFrom(field: "tokenId") #address
+  nftOwne: [BuyNFT!] @derivedFrom(field: "owner") #address
   acceptOffer: [AcceptOffer!] @derivedFrom(field: "owner") #address
   rejectOffer: [RejectOffer!] @derivedFrom(field: "owner") #address
   createOffer: [CreateOffer!] @derivedFrom(field: "offerBy") #address
   marketItemCreated: [MarketItemCreated!] @derivedFrom(field: "seller") #address  #address
+  ts: BigInt!
 }
 
-enum State @entity {
-  Created
-  Release
-  Inactive
-}
-enum OfferState @entity {
-  OPEN
-  CLOSE
-}
+# enum State @entity {
+#   Created
+#   Release
+#   Inactive
+# }
+# enum String @entity {
+#   OPEN
+#   CLOSE
+# }

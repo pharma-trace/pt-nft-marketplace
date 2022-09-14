@@ -19,8 +19,9 @@ export class CreateOfferResponse {
 export function getCreateOffer(id: string): CreateOfferResponse {
     let isExist = true;
     let entity = createOfferEntity.load(id);
-    if (entity.id == "") {
+    if (!entity) {
         isExist = false;
+        entity = new createOfferEntity(id);
     }
     var res = new CreateOfferResponse(isExist, entity);
     return res;

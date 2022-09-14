@@ -19,8 +19,9 @@ export class MarketItemResponse {
 export function getMarketItem(id: string): MarketItemResponse {
     let isExist = true;
     let entity = marketItemCreatedEntity.load(id);
-    if (entity.id == "") {
+    if (!entity) {
         isExist = false;
+        entity = new marketItemCreatedEntity(id);
     }
     var res = new MarketItemResponse(isExist, entity);
     return res;

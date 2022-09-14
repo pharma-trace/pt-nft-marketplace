@@ -24,6 +24,7 @@ export function handleApproval(event: ApprovalEvent): void {
   entity.owner = event.params.owner
   entity.approved = event.params.approved
   entity.tokenId = event.params.tokenId
+  entity.ts = event.block.timestamp
   entity.save()
 }
 
@@ -34,6 +35,8 @@ export function handleApprovalForAll(event: ApprovalForAllEvent): void {
   entity.owner = event.params.owner
   entity.operator = event.params.operator
   entity.approved = event.params.approved
+  entity.ts = event.block.timestamp
+
   entity.save()
 }
 
@@ -44,6 +47,8 @@ export function handleRedeemVoucher(event: RedeemVoucherEvent): void {
   entity.signer = event.params.signer
   entity.tokenId = event.params.tokenId
   entity.redeemer = event.params.redeemer
+  entity.ts = event.block.timestamp
+
   entity.save()
 }
 
@@ -54,6 +59,8 @@ export function handleRoleAdminChanged(event: RoleAdminChangedEvent): void {
   entity.role = event.params.role
   entity.previousAdminRole = event.params.previousAdminRole
   entity.newAdminRole = event.params.newAdminRole
+  entity.ts = event.block.timestamp
+
   entity.save()
 }
 
@@ -64,6 +71,8 @@ export function handleRoleGranted(event: RoleGrantedEvent): void {
   entity.role = event.params.role
   entity.account = event.params.account
   entity.sender = event.params.sender
+  entity.ts = event.block.timestamp
+
   entity.save()
 }
 
@@ -74,6 +83,8 @@ export function handleRoleRevoked(event: RoleRevokedEvent): void {
   entity.role = event.params.role
   entity.account = event.params.account
   entity.sender = event.params.sender
+  entity.ts = event.block.timestamp
+
   entity.save()
 }
 
@@ -84,5 +95,7 @@ export function handleTransfer(event: TransferEvent): void {
   entity.from = event.params.from
   entity.to = event.params.to
   entity.tokenId = event.params.tokenId
+  entity.ts = event.block.timestamp
+
   entity.save()
 }

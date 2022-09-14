@@ -201,16 +201,12 @@ export class PTNFT___verifyInputVoucherStruct extends ethereum.Tuple {
     return this[1].toBigInt();
   }
 
-  get maxPrice(): BigInt {
-    return this[2].toBigInt();
-  }
-
   get uri(): string {
-    return this[3].toString();
+    return this[2].toString();
   }
 
   get signature(): Bytes {
-    return this[4].toBytes();
+    return this[3].toBytes();
   }
 }
 
@@ -245,7 +241,7 @@ export class PTNFT extends ethereum.SmartContract {
   _verify(voucher: PTNFT___verifyInputVoucherStruct): Address {
     let result = super.call(
       "_verify",
-      "_verify((uint256,uint256,uint256,string,bytes)):(address)",
+      "_verify((uint256,uint256,string,bytes)):(address)",
       [ethereum.Value.fromTuple(voucher)]
     );
 
@@ -257,7 +253,7 @@ export class PTNFT extends ethereum.SmartContract {
   ): ethereum.CallResult<Address> {
     let result = super.tryCall(
       "_verify",
-      "_verify((uint256,uint256,uint256,string,bytes)):(address)",
+      "_verify((uint256,uint256,string,bytes)):(address)",
       [ethereum.Value.fromTuple(voucher)]
     );
     if (result.reverted) {
@@ -673,16 +669,12 @@ export class RedeemCallVoucherStruct extends ethereum.Tuple {
     return this[1].toBigInt();
   }
 
-  get maxPrice(): BigInt {
-    return this[2].toBigInt();
-  }
-
   get uri(): string {
-    return this[3].toString();
+    return this[2].toString();
   }
 
   get signature(): Bytes {
-    return this[4].toBytes();
+    return this[3].toBytes();
   }
 }
 
