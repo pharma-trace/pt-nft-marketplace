@@ -3,99 +3,57 @@ schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
-    name: PTNFTMarketPlace
-    network: rinkeby
+    name: PTMarket
+    network: goerli
     source:
-      address: "0x31CE574631206FF278a3874d662532067803234D"
-      abi: PTNFTMarketPlace
-      startBlock: 11373520
+      address: "0x6651C922A8cEC0233dDe987F824F02562397DA04"
+      abi: PTMarket
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
       language: wasm/assemblyscript
       entities:
-        - AcceptOffer
-        - BuyNFT
-        - CreateOffer
-        - FallbackCalled
-        - MarketItemCreated
-        - MarketItemDelete
-        - ReceivedCalled
-        - RejectOffer
-        - TotalNumberOfItemMarketPlace
-        - TotalNumberOfOfferOnMarketPlace
-        - WithDrawAmount
-        - WithDrawFromOffer
-        - WithDrawRefundAmount
+        - CollectionWhitelisted
+        - CurrencyWhitelisted
+        - FeePercentUpadated
+        - ItemBought
+        - ItemListed
+        - ItemUnlisted
+        - OfferAccepted
+        - OfferCreated
+        - OfferRejected
+        - OfferWithdrawn
+        - OwnershipTransferred
+        - TradeExecuted
+        - VoucherWritten
       abis:
-        - name: PTNFTMarketPlace
-          file: ./abis/PTNFTMarketPlace.json
+        - name: PTMarket
+          file: ./abis/PTMarket.json
       eventHandlers:
-        - event: AcceptOffer(indexed uint256,address,indexed address,uint256,indexed address,uint8)
-          handler: handleAcceptOffer
-        - event: BuyNFT(indexed uint256,address,indexed address,uint256,indexed address)
-          handler: handleBuyNFT
-        - event:
-            CreateOffer(indexed uint256,indexed address,uint256,uint256,uint256,uint256,indexed
-            address,uint8)
-          handler: handleCreateOffer
-        - event: FallbackCalled(indexed address,indexed uint256)
-          handler: handleFallbackCalled
-        - event: MarketItemCreated(indexed uint256,indexed address,indexed
-            address,address,uint256,bool,uint256,uint256,uint8)
-          handler: handleMarketItemCreated
-        - event: MarketItemDelete(indexed uint256,indexed address,indexed address,uint8)
-          handler: handleMarketItemDelete
-        - event: ReceivedCalled(indexed address,indexed uint256)
-          handler: handleReceivedCalled
-        - event: RejectOffer(indexed uint256,address,indexed address,uint256,indexed address,uint8)
-          handler: handleRejectOffer
-        - event: TotalNumberOfItemMarketPlace(indexed uint256)
-          handler: handleTotalNumberOfItemMarketPlace
-        - event: TotalNumberOfOfferOnMarketPlace(indexed uint256)
-          handler: handleTotalNumberOfOfferOnMarketPlace
-        - event: WithDrawAmount(indexed address,indexed uint256)
-          handler: handleWithDrawAmount
-        - event: WithDrawFromOffer(indexed uint256,indexed address,uint256,indexed address)
-          handler: handleWithDrawFromOffer
-        - event: WithDrawRefundAmount(indexed uint256,indexed address,indexed address,uint256)
-          handler: handleWithDrawRefundAmount
-      file: ./src/ptnft-market-place.ts
-  - kind: ethereum
-    name: PTNFT
-    network: rinkeby
-    source:
-      address: "0xf7160BDa34Abe48D6BC4a920030926Cc96f5e1eB"
-      abi: PTNFT
-      startBlock: 11373530
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.6
-      language: wasm/assemblyscript
-      entities:
-        - Approval
-        - ApprovalForAll
-        - RedeemVoucher
-        - RoleAdminChanged
-        - RoleGranted
-        - RoleRevoked
-        - Transfer
-      abis:
-        - name: PTNFT
-          file: ./abis/PTNFT.json
-      eventHandlers:
-        - event: Approval(indexed address,indexed address,indexed uint256)
-          handler: handleApproval
-        - event: ApprovalForAll(indexed address,indexed address,bool)
-          handler: handleApprovalForAll
-        - event: RedeemVoucher(indexed address,indexed uint256,indexed address)
-          handler: handleRedeemVoucher
-        - event: RoleAdminChanged(indexed bytes32,indexed bytes32,indexed bytes32)
-          handler: handleRoleAdminChanged
-        - event: RoleGranted(indexed bytes32,indexed address,indexed address)
-          handler: handleRoleGranted
-        - event: RoleRevoked(indexed bytes32,indexed address,indexed address)
-          handler: handleRoleRevoked
-        - event: Transfer(indexed address,indexed address,indexed uint256)
-          handler: handleTransfer
-      file: ./src/ptnft.ts
+        - event: CollectionWhitelisted(indexed address)
+          handler: handleCollectionWhitelisted
+        - event: CurrencyWhitelisted(indexed address,bool)
+          handler: handleCurrencyWhitelisted
+        - event: FeePercentUpadated(uint256)
+          handler: handleFeePercentUpadated
+        - event: ItemBought(indexed address,indexed uint256,address,bool)
+          handler: handleItemBought
+        - event: ItemListed(indexed address,indexed uint256,indexed address,address,uint256,uint256,bool)
+          handler: handleItemListed
+        - event: ItemUnlisted(indexed address,indexed uint256)
+          handler: handleItemUnlisted
+        - event: OfferAccepted(indexed address,indexed uint256,address)
+          handler: handleOfferAccepted
+        - event: OfferCreated(indexed address,indexed uint256,address,uint256,bool)
+          handler: handleOfferCreated
+        - event: OfferRejected(indexed address,indexed uint256,address)
+          handler: handleOfferRejected
+        - event: OfferWithdrawn(indexed address,indexed uint256)
+          handler: handleOfferWithdrawn
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: TradeExecuted(indexed address,indexed uint256,address,address,address,uint256,bool)
+          handler: handleTradeExecuted
+        - event: VoucherWritten(indexed address,indexed uint256,string,address,bytes)
+          handler: handleVoucherWritten
+      file: ./src/pt-market.ts
