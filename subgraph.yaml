@@ -8,6 +8,7 @@ dataSources:
     source:
       address: "0x6651C922A8cEC0233dDe987F824F02562397DA04"
       abi: PTMarket
+      startBlock: 7747127
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6

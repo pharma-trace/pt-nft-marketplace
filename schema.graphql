@@ -3,7 +3,6 @@ type ItemListedEntity @entity {
   ts: BigInt!
   collection: Bytes
   tokenId: BigInt!
-  uri: String!
   seller: User!
   currency: Bytes!
   minPrice: BigInt!

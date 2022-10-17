@@ -107,7 +107,6 @@ export function handleItemListed(event: ItemListed): void {
   var listedItem: listedItemResponse = getListedItem(id);
   listedItem.listedItemEntity.collection = event.params.collection
   listedItem.listedItemEntity.tokenId = event.params.tokenId
-  listedItem.listedItemEntity.uri = ""
   listedItem.listedItemEntity.seller = event.params.seller.toHexString()
   listedItem.listedItemEntity.currency = event.params.currency
   listedItem.listedItemEntity.minPrice = event.params.minPrice
@@ -287,4 +286,21 @@ export function handleTradeExecuted(event: TradeExecuted): void {
 
 }
 
-export function handleVoucherWritten(event: VoucherWritten): void { }
+export function handleVoucherWritten(event: VoucherWritten): void {
+  var id = getId(event.params.collection.toHexString(), event.params.tokenId.toHexString())
+
+  let entity = VoucherWrittenEntity.load(id)
+
+  // Entities only exist after they have been saved to the store;
+  // `null` checks allow to create entities on demand
+  if (!entity) {
+    entity = new VoucherWrittenEntity(id)
+  }
+  entity.collection = event.params.collection
+  entity.tokenId = event.params.tokenId
+  entity.uri = event.params.uri
+  entity.currency = event.params.currency
+  entity.signature = event.params.signature
+  entity.ts = event.block.timestamp
+  entity.save()
+}

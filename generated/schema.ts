@@ -79,15 +79,6 @@ export class ItemListedEntity extends Entity {
     this.set("tokenId", Value.fromBigInt(value));
   }
 
-  get uri(): string {
-    let value = this.get("uri");
-    return value!.toString();
-  }
-
-  set uri(value: string) {
-    this.set("uri", Value.fromString(value));
-  }
-
   get seller(): string {
     let value = this.get("seller");
     return value!.toString();
